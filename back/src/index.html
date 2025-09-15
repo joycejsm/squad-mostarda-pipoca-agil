@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste de WebSocket e API</title>
+</head>
+<body>
+    <h1>Teste de Servidor</h1>
+    <p>Verifique o console do navegador e o seu terminal para ver as mensagens!</p>
+
+    <h2>Teste de Registro de Usuário (API REST)</h2>
+    <input type="text" id="usernameInput" placeholder="Digite seu nome de usuário">
+    <button id="registerBtn">Registrar Usuário</button>
+    <div id="registerStatus"></div>
+
+    <h2>Teste de WebSocket</h2>
+    <div id="status">Desconectado</div>
+    <div id="messages"></div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+        // 1. Conexão com o WebSocket
+        const socket = io("http://localhost:3000");
+
+        socket.on("connect", () => {
+            console.log("Conectado ao servidor WebSocket!");
+            document.getElementById("status").innerText = "Conectado!";
+        });
+
+        socket.on("disconnect", () => {
+            console.log("Desconectado do servidor WebSocket.");
+            document.getElementById("status").innerText = "Desconectado";
+        });
+
+        socket.on("notificacao", (data) => {
+            console.log("Notificação recebida:", data);
+            const messagesDiv = document.getElementById("messages");
+            messagesDiv.innerHTML += `<p><strong>Notificação:</strong> ${data.mensagem}</p>`;
+        });
+
+        // 2. Lógica para Testar a Rota de Registro
+        document.getElementById("registerBtn").addEventListener("click", () => {
+            const username = document.getElementById("usernameInput").value;
+            const registerStatusDiv = document.getElementById("registerStatus");
+
+            fetch("http://localhost:3000/api/users/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ username }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    registerStatusDiv.innerHTML = `<p style="color:red;">Erro: ${data.error}</p>`;
+                    console.error("Erro ao registrar:", data.error);
+                } else {
+                    registerStatusDiv.innerHTML = `<p style="color:green;">Sucesso: ${data.message}</p>`;
+                    console.log("Usuário registrado com sucesso:", data.user);
+                }
+            })
+            .catch(error => {
+                registerStatusDiv.innerHTML = `<p style="color:red;">Erro de rede: ${error.message}</p>`;
+                console.error("Erro na requisição:", error);
+            });
+        });
+    </script>
+</body>
+</html>
