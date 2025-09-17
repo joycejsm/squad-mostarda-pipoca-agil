@@ -1,5 +1,6 @@
 import { PrismaClient } from "../generated/prisma/index.js";
-// import bcrypt from "bcrypt"; // quando quiser usar hash de senha
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
@@ -16,8 +17,8 @@ export const registerUser = async (username) => {
   const newUser = await prisma.user.create({
     data: {
       username,
-      isComplete: false
-    }
+      isComplete: false,
+    },
   });
 
   return newUser;
@@ -34,25 +35,88 @@ export const updateUserWithCredentials = async (id, email, password) => {
   }
 
   // 🔒 Quando for usar bcrypt, troque isso:
-  // const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   const userToUpdate = await prisma.user.findUnique({
-    where: { id: Number(id) }
+    where: { id: Number(id) },
   });
 
   if (!userToUpdate) {
     throw new Error("Usuário não encontrado.");
   }
 
+  const existingEmailUser = await prisma.user.findUnique({
+    where: {email},
+  });
+
+  if (existingEmailUser) {
+    throw new Error("Este e-mail já está em uso.")
+  }
+
   const updatedUser = await prisma.user.update({
     where: { id: Number(id) },
     data: {
       email,
-      password, // quando usar hash: hashedPassword
-      isComplete: true
-    }
+      password: hashedPassword,
+      isComplete: true,
+    },
   });
 
   return updatedUser;
 };
+
+export const authenticateUser = async (email, password) => {
+  if (!email || !password) {
+    throw new Error("E-mail e senha são obrigatórios para o login.")
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {email},
+  })
+
+
+
+  //se o user não existe ou o cadastro não está completo
+
+if (!user || !user.isComplete) {
+  throw new Error("Credenciais inválidas.")
+}
+
+//comparar a senha informada com a criptografada
+
+const isMatch = await bcrypt.compare(password, user.password);
+
+if (!isMatch) {
+  throw new Error("Credenciais inválidas")
+}
+
+// Gerar o token JWT
+
+const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {
+  expiresIn: "1h",
+})
+
+return {token, user: { id: user.id, username: user.username, email: user.email} };
+};
+
+export const getUserById = async (id) => {
+  const user = await prisma.user.findUnique({
+    where: {id: Number(id)},
+    select: {
+      id: true, 
+      username: true, 
+      email: true,
+      isComplete: true,
+    },
+  })
+
+  if(!user) {
+    throw new Error("Usuaário não encontrado.");
+  }
+
+  return user;
+}
+
+
+
 
