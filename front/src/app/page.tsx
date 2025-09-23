@@ -7,20 +7,49 @@ export default function Home() {
       <main className={styles.main}>
         <Image
           className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
+          src="/Ellipse.svg"
+          alt="Ellipse"
+          width={172}
+          height={172}
           priority
         />
-        <ol>
+        <h1>Controle suas emoções e dinheiro</h1>
+        {/* <ol>
           <li>
             Get started by editing <code>src/app/page.tsx</code>.
           </li>
           <li>Save and see your changes instantly.</li>
-        </ol>
+        </ol> */}
 
-        <div className={styles.ctas}>
+        <ul>
+          <li>
+            <Image
+              className={styles.logo}
+              src="/bullet.svg"
+              alt="bullet"
+              width={18}
+              height={18}
+              priority
+            /> <span>Controle automático de gastos</span> </li>
+          <li> <Image
+            className={styles.logo}
+            src="/bullet.svg"
+            alt="bullet"
+            width={18}
+            height={18}
+            priority
+          /><span>Registro de emoções nos gastos</span></li>
+          <li> <Image
+            className={styles.logo}
+            src="/bullet.svg"
+            alt="bullet"
+            width={18}
+            height={18}
+            priority
+          /><span>Metas financeiras personalizadas</span></li>
+        </ul>
+
+        {/* <div className={styles.ctas}>
           <a
             className={styles.primary}
             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
@@ -44,9 +73,26 @@ export default function Home() {
           >
             Read our docs
           </a>
+        </div> */}
+
+        <div className={styles.ctas}>
+          <a
+            className={styles.primary}
+            href="#"
+          >
+            COMEÇAR AGORA
+          </a>
+          <a
+            href="#"
+            className={styles.secondary}
+          >
+            JÁ TENHO CONTA
+          </a>
         </div>
       </main>
-      <footer className={styles.footer}>
+
+
+      {/* <footer className={styles.footer}>
         <a
           href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
           target="_blank"
@@ -89,7 +135,7 @@ export default function Home() {
           />
           Go to nextjs.org →
         </a>
-      </footer>
+      </footer> */}
     </div>
   );
 }

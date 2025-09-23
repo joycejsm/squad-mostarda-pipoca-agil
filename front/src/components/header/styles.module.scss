@@ -18,5 +18,11 @@
 	cursor: pointer;
 	color: #000;
 	font-weight: bold;
-	padding-left: 32px;
+	padding-left: 130px;
+}
+
+@media (max-width: 600px) {
+  .logo {
+    padding-left: 32px;
+  }
 }
