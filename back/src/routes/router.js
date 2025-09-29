@@ -2,13 +2,14 @@
 import { Router } from "express";
 import { register, completeRegistration, login, getProfile } from "../controllers/userController.js";
 import authMiddleware from "../middlewares/auth.js";
+import tempAuthMiddleware from "../middlewares/tempAuthMiddleware.js";
 const router = Router();
 
 // Rota para o registro do nome de usuário (primeira tela)
 router.post("/api/users/register", register);
 
 // Nova rota para o cadastro de email e senha (segunda tela)
-router.post("/api/users/complete-registration", completeRegistration);
+router.post("/api/users/complete-registration", tempAuthMiddleware,  completeRegistration);
 
 //rota de login de usuário
 router.post("/api/users/login", login);

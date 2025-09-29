@@ -5,6 +5,7 @@ import router from "./routes/router.js"; // Importa o arquivo de rotas
 import { initializeSocket } from "./sockets/socketController.js"; // Importa o controlador do WebSocket
 import path from "path";
 import { fileURLToPath } from "url";
+import cookieParser from "cookie-parser";
 
 
 // 1. Configurações do Servidor
@@ -22,7 +23,7 @@ const __dirname = path.dirname(__filename);
 
 // 2. Middlewares
 app.use(express.json()); // Permite que o Express entenda requisições JSON
-
+app.use(cookieParser())
 app.use(express.static(__dirname))
 // 3. Rotas da API
 app.use(router);

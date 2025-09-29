@@ -8,6 +8,7 @@ const prisma = new PrismaClient();
  * Primeira etapa do registro (somente username).
  * - Permite nomes repetidos (não é único).
  * - Cria usuário "incompleto".
+ * - GERA O JWT com o ID do usuário
  */
 export const registerUser = async (username) => {
   if (!username || username.trim() === "") {
@@ -21,18 +22,25 @@ export const registerUser = async (username) => {
     },
   });
 
-  return newUser;
+  const token = jwt.sign({userId: newUser.id} , process.env.JWT_SECRET, {
+    expiresIn: "30m",
+  })
+
+  return {newUser, token};
 };
 
 /**
  * Segunda etapa do registro (email + senha).
  * - Email é único (o Prisma já garante).
  * - Atualiza o usuário existente e marca como completo.
+ * - Recebe o ID DO TOKEN e completa o cadastro.
  */
 export const updateUserWithCredentials = async (id, email, password) => {
   if (!email || email.trim() === "" || !password || password.length < 6) {
     throw new Error("E-mail e senha são obrigatórios e válidos.");
   }
+
+  const numericId = Number(id);
 
   // 🔒 Quando for usar bcrypt, troque isso:
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -42,16 +50,16 @@ export const updateUserWithCredentials = async (id, email, password) => {
   });
 
   if (!userToUpdate) {
-    throw new Error("Usuário não encontrado.");
+    throw new Error("Usuário não encontrado ou token inválido.");
   }
 
-  const existingEmailUser = await prisma.user.findUnique({
-    where: {email},
-  });
+  // const existingEmailUser = await prisma.user.findUnique({
+  //   where: {email},
+  // });
 
-  if (existingEmailUser) {
-    throw new Error("Este e-mail já está em uso.")
-  }
+  // if (existingEmailUser) {
+  //   throw new Error("Este e-mail já está em uso.")
+  // }
 
   const updatedUser = await prisma.user.update({
     where: { id: Number(id) },
@@ -111,7 +119,7 @@ export const getUserById = async (id) => {
   })
 
   if(!user) {
-    throw new Error("Usuaário não encontrado.");
+    throw new Error("Usuário não encontrado.");
   }
 
   return user;
