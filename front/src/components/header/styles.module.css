@@ -8,15 +8,15 @@
   width: 100%;
   height: 80px;
   /* background-color: #FFF; */
-  background-color: var(--background);
+  background-color: #D4A017;
   flex-wrap: wrap;
-  border-bottom: 1px solid #B2B2B2; /* ? */
+  /* border-bottom: 1px solid #B2B2B2;  */
 }
 
 .logo {
   text-decoration: none;
   cursor: pointer;
-  /* color: #000; */
+  color: #FFFFFF;
   font-size: 24px;
   font-weight: bold;
   padding-left: 130px;

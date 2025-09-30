@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -7,8 +8,8 @@ export default function Home() {
       <main className={styles.main}>
         <Image
           className={styles.logo}
-          src="/Ellipse.svg"
-          alt="Ellipse"
+          src="/Checklist.svg"
+          alt="Checklist"
           width={172}
           height={172}
           priority
@@ -17,39 +18,39 @@ export default function Home() {
         <ul>
           <li>
             <Image
-              src="/bullet.svg"
-              alt="bullet"
-              width={18}
-              height={18}
+              src="/Checkmark.svg"
+              alt="Checkmark"
+              width={24}
+              height={24}
               priority
             />
             <span>Controle automático de gastos</span> </li>
           <li>
             <Image
-              src="/bullet.svg"
-              alt="bullet"
-              width={18}
-              height={18}
+              src="/Checkmark.svg"
+              alt="Checkmark"
+              width={24}
+              height={24}
               priority
             />
             <span>Registro de emoções nos gastos</span></li>
           <li>
             <Image
-              src="/bullet.svg"
-              alt="bullet"
-              width={18}
-              height={18}
+              src="/Checkmark.svg"
+              alt="Checkmark"
+              width={24}
+              height={24}
               priority
             />
             <span>Metas financeiras personalizadas</span></li>
         </ul>
         <div className={styles.ctas}>
-          <a
+          <Link
             className={styles.primary}
-            href="#"
+            href="/register"
           >
             COMEÇAR AGORA
-          </a>
+          </Link>
           <a
             href="#"
             className={styles.secondary}

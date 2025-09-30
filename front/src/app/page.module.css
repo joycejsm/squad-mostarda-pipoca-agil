@@ -16,8 +16,6 @@
   /* gap: 72px; */
     /* padding: 80px; */
 
-  font-family: var(--font-geist-sans);
-
   ul {
     list-style-type: none;
   }
@@ -32,7 +30,7 @@
     margin-top: 10px;
     text-align: center;
     font-size: 32px;
-    font-weight: bold;
+    font-weight: 500; /*Medium*/
   }
 
   span {
@@ -96,18 +94,18 @@
   font-size: 20px;
   line-height: 20px;
   border-radius: 8px;
-  font-weight: bold;
+  font-weight: 500; /*Medium*/
   min-width: 580px;
 }
 
 a.primary {
-  background: #323232;
-  color: #EDEDED;
+  background: #D4A017;
+  color: #0E0F11;
   gap: 8px;
 }
 
 a.secondary {
-  border-color: #323232;
+  border-color: #D4A017;
   color: #575757;
 }
 
