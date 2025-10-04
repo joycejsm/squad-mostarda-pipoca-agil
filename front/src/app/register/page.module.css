@@ -4,23 +4,117 @@
   display: grid;
   align-items: center;
   justify-items: center;
+  padding: 16px;
   gap: 16px;
+  margin-top: 4px;
+
+  a {
+    justify-self: end;
+  }
 
   h1 {
-    margin-top: 10px;
     text-align: center;
     font-size: 32px;
     font-weight: 500; /*Medium*/
   }
 
-  p {
-    font-size: 20px;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin: 0px;
+    padding: 0px;
   }
 
-  strong {
-    color: red;
-    text-decoration-line: underline;
-    text-decoration-color:indigo;
-    font-weight: 900;
+}
+
+.textForm {
+  font-size: 20px;
+  padding: 10px 10px 10px 5px;
+  min-width: 580px;
+  border: none;
+  border-bottom: 1px solid #B2B2B2;
+  background-color: var(--background);
+  background: url('/At_sign.svg') no-repeat right;
+
+  &:focus {
+    outline: none;
   }
+
+  &::placeholder {
+    color: #9F9F9F;
+  }
+}
+
+.ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.primary {
+  appearance: none;
+  height: 48px;
+  padding: 0 90px;
+  border: 1px solid transparent;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  line-height: 20px;
+  border-radius: 8px;
+  font-weight: 500; /*Medium*/
+  min-width: 580px;
+}
+
+.enabled {
+  background: #D4A017;
+  color: #0E0F11;
+}
+
+.disabled {
+  background: #DDE1E6;
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+
+  .page {
+    padding: 32px;
+    padding-bottom: 80px;
+    gap: 64px;
+
+    h1 {
+      font-size: 24px;
+    }
+  }
+
+
+  .logo {
+    margin-top: 16px;
+    margin-bottom: -32px;
+  }
+
+  .textForm {
+    font-size: 14;
+    min-width: 295px;
+  }
+
+  .ctas {
+    flex-direction: column;
+  }
+
+  .primary {
+    font-size: 14px;
+    height: 45px;
+    padding: 0 70px;
+    min-width: 295px;
+    /* border-radius: 0px; */
+  }
+
 }
