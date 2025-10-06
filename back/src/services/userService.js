@@ -4,14 +4,38 @@ import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
+const USERNAME_REGEX = /^[A-Za-z\s]+$/; //regra que permite apenas letras e espaços
+
+const MAX_USERNAME_LENGTH = 144; 
+
+const MIN_USERNAME_LENGTH = 3;
+
 /**
  * Primeira etapa do registro (somente username).
  * - Permite nomes repetidos (não é único).
  * - Cria usuário "incompleto".
+ * - GERA O JWT com o ID do usuário
  */
 export const registerUser = async (username) => {
+
+  if(typeof username !== "string") {
+    throw new Error ("O nome de usuário deve ser uma sequência de letras.")
+  }
+
   if (!username || username.trim() === "") {
     throw new Error("O nome de usuário é obrigatório.");
+  }
+
+  if(username.length > MAX_USERNAME_LENGTH) {
+    throw new Error(`O nome de usuário não pode exceder ${MAX_USERNAME_LENGTH} caracteres`)
+  }
+
+  if(username.length < MIN_USERNAME_LENGTH){
+    throw new Error(`O nome de usuário deve ter pelo menos 3 letras.`)
+  }
+
+  if(!USERNAME_REGEX.test(username)) {
+    throw new Error("O nome de usuário deve conter apenas letras e não pode ter números ou caracteres especiais.")
   }
 
   const newUser = await prisma.user.create({
@@ -21,18 +45,25 @@ export const registerUser = async (username) => {
     },
   });
 
-  return newUser;
+  const token = jwt.sign({userId: newUser.id} , process.env.JWT_SECRET, {
+    expiresIn: "30m",
+  })
+
+  return {newUser, token};
 };
 
 /**
  * Segunda etapa do registro (email + senha).
  * - Email é único (o Prisma já garante).
  * - Atualiza o usuário existente e marca como completo.
+ * - Recebe o ID DO TOKEN e completa o cadastro.
  */
 export const updateUserWithCredentials = async (id, email, password) => {
   if (!email || email.trim() === "" || !password || password.length < 6) {
     throw new Error("E-mail e senha são obrigatórios e válidos.");
   }
+
+  const numericId = Number(id);
 
   // 🔒 Quando for usar bcrypt, troque isso:
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -42,16 +73,16 @@ export const updateUserWithCredentials = async (id, email, password) => {
   });
 
   if (!userToUpdate) {
-    throw new Error("Usuário não encontrado.");
+    throw new Error("Usuário não encontrado ou token inválido.");
   }
 
-  const existingEmailUser = await prisma.user.findUnique({
-    where: {email},
-  });
+  // const existingEmailUser = await prisma.user.findUnique({
+  //   where: {email},
+  // });
 
-  if (existingEmailUser) {
-    throw new Error("Este e-mail já está em uso.")
-  }
+  // if (existingEmailUser) {
+  //   throw new Error("Este e-mail já está em uso.")
+  // }
 
   const updatedUser = await prisma.user.update({
     where: { id: Number(id) },
@@ -111,7 +142,7 @@ export const getUserById = async (id) => {
   })
 
   if(!user) {
-    throw new Error("Usuaário não encontrado.");
+    throw new Error("Usuário não encontrado.");
   }
 
   return user;

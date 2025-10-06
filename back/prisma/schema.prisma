@@ -17,7 +17,7 @@ datasource db {
 
 model User {
   id           Int      @id @default(autoincrement())
-  username     String
+  username     String   @db.VarChar(144)
   email        String?  @unique  // Opcional inicialmente
   password     String?             // Opcional inicialmente
   reminderTime String?  @map("reminder_time")
