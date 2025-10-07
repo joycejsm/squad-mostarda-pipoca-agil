@@ -9,10 +9,10 @@ export default function Register() {
   const navigate = useRouter()
   const [inputVal, setInputVal] = useState<string>("");
   const [isTyping, setIsTyping] = useState(false);
-  const typingTimeoutRef = useRef(null);
-  const illegalChars = /[^a-zA-Z-À-ÖØ-öø-ÿ ]+$/; /* regex com os caracteres não permitidos*/
+  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const illegalChars = /[^a-zA-ZÀ-ÖØ-öø-ÿ ]/; /* regex com os caracteres não permitidos*/
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputVal(e.target.value);
 
     if (typingTimeoutRef.current) {
@@ -27,7 +27,7 @@ export default function Register() {
   };
 
   let isValid: boolean = !!inputVal.trim()
-  if (inputVal.length > 30) {
+  if (inputVal.length < 3 || inputVal.length > 144) {
     isValid = false
   }
 
@@ -38,6 +38,7 @@ export default function Register() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (isValid && !isTyping) {
+      console.log(inputVal);
       navigate.push("/") // vai alterar a localização após um evento (por exemplo: eventos de formulário)
     }
   }
@@ -75,7 +76,7 @@ export default function Register() {
           onKeyUp={(e) => e.stopPropagation()}
         />
         <br />
-        <div className={styles.cts}>
+        <div className={styles.ctas}>
           <input className={`${styles.primary} ${isValid && !isTyping ? styles.enabled : styles.disabled}`}
             type="submit" value="CONTINUAR" />
         </div>
