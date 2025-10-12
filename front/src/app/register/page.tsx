@@ -10,7 +10,8 @@ export default function Register() {
   const [inputVal, setInputVal] = useState<string>("");
   const [isTyping, setIsTyping] = useState(false);
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const illegalChars = /[^a-zA-ZÀ-ÖØ-öø-ÿ ]/; /* regex com os caracteres não permitidos*/
+  const validPattern = /^[a-zA-ZÀ-ÖØ-öø-ÿ ]{3,144}$/; /* regex com o padrão permitido, faça o teste em https://regexr.com/ */
+  const isValid: boolean = !!inputVal.trim() && !!inputVal.match(validPattern);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputVal(e.target.value);
@@ -26,15 +27,6 @@ export default function Register() {
     }, 900);
   };
 
-  let isValid: boolean = !!inputVal.trim()
-  if (inputVal.length < 3 || inputVal.length > 144) {
-    isValid = false
-  }
-
-  if (inputVal.match(illegalChars)) {
-    isValid = false
-  }
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (isValid && !isTyping) {
@@ -42,7 +34,6 @@ export default function Register() {
       navigate.push("/") // vai alterar a localização após um evento (por exemplo: eventos de formulário)
     }
   }
-
 
   return (
     <div className={styles.page}>
