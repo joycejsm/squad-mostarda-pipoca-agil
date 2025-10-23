@@ -5,7 +5,7 @@ import Image from "next/image";
 import styles from "./page.module.css"; /*arquivo de estilização*/
 import Link from 'next/link';
 
-export default function Register() {
+export default function Name() {
   const navigate = useRouter()
   const [inputVal, setInputVal] = useState<string>("");
   const [isTyping, setIsTyping] = useState(false);
@@ -31,7 +31,7 @@ export default function Register() {
     e.preventDefault()
     if (isValid && !isTyping) {
       console.log(inputVal);
-      navigate.push("/") // vai alterar a localização após um evento (por exemplo: eventos de formulário)
+      navigate.push("/register/user") // vai alterar a localização após um evento (por exemplo: eventos de formulário)
     }
   }
 
