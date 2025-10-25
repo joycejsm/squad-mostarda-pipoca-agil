@@ -1,4 +1,4 @@
-/*arquivo de estilização da página de cadastro de nome (Register)*/
+/*arquivo de estilização da página de cadastro de novo usuário (Register)*/
 
 .page {
   display: grid;
@@ -7,10 +7,6 @@
   padding: 16px;
   gap: 16px;
   margin-top: 4px;
-
-  a {
-    justify-self: end;
-  }
 
   h1 {
     text-align: center;
@@ -24,7 +20,52 @@
     gap: 32px;
     margin: 0px;
     padding: 0px;
+
+    label {
+      margin-bottom: -14px;
+      font-size: 14px;
+    }
   }
+
+}
+
+.navContainer {
+  display: flex;
+  gap: 70vw;
+
+  a:first-child {
+    justify-self: start;
+  }
+
+  a:nth-child(2) {
+    justify-self: end;
+  }
+}
+
+.checkboxContainer {
+  display: flex;
+  margin-bottom: -12px;
+  margin-top: -12px;
+
+
+  input[type="checkbox"] {
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  padding: 0;
+  border: 2px solid #D4A017;
+  appearance: none;
+  background-color: #FFEFBF;
+  outline: none;
+  transition: outline 0.1s;
+}
+
+
+input[type="checkbox"]:checked {
+  background-color: #D4A017;
+  padding: 2px;
+}
 
 }
 
@@ -32,10 +73,8 @@
   font-size: 20px;
   padding: 10px 10px 10px 5px;
   min-width: 580px;
-  /* border: none; */
   border: 1px solid #B2B2B2;
   background-color: var(--background);
-  /* background: url('/At_sign.svg') no-repeat right; */
 
   &:focus {
     outline: none;
@@ -52,7 +91,7 @@
   gap: 16px;
 }
 
-.primary {
+.formButton {
   appearance: none;
   height: 48px;
   padding: 0 90px;
@@ -68,11 +107,12 @@
   font-size: 20px;
   line-height: 20px;
   border-radius: 8px;
-  font-weight: 500; /*Medium*/
+  font-weight: 500;
+  /*Medium*/
   min-width: 580px;
 }
 
-.enabled {
+.primary {
   background: #D4A017;
   color: #0E0F11;
 }
@@ -80,6 +120,11 @@
 .disabled {
   background: #DDE1E6;
   color: #fff;
+}
+
+.secondary {
+  border-color: #D4A017;
+  color: #575757;
 }
 
 @media (max-width: 600px) {
@@ -90,12 +135,13 @@
     gap: 64px;
 
     h1 {
-      font-size: 24px;
+      font-size: 28px;
     }
   }
 
   .textForm {
     font-size: 14;
+    min-height: 52px;
     min-width: 295px;
   }
 
@@ -103,7 +149,7 @@
     flex-direction: column;
   }
 
-  .primary {
+  .formButton {
     font-size: 14px;
     height: 45px;
     padding: 0 70px;
