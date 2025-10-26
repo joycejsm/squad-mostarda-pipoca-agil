@@ -86,17 +86,25 @@ export default function User() {
         />
         <div className={styles.checkboxContainer}>
           <input type="checkbox" id="checkbox1" name="checkbox1" value="Checkbox1" />
-          <label htmlFor="vehicle1">Mantenha-me conectado</label> <br />
+          <label htmlFor="checkbox1">Mantenha-me conectado</label> <br />
         </div>
         <div className={styles.checkboxContainer}>
           <input type="checkbox" id="checkbox2" name="checkbox2" value="Checkbox2" />
-          <label htmlFor="vehicle2">Concordo com as Leis LGPD</label> <br />
+          <label htmlFor="checkbox2">Concordo com as Leis LGPD</label> <br />
         </div>
 
         <br />
+
+        <Image
+          src="/Social_media_collection.svg"
+          alt="Social_media_collection.svg"
+          // width={329}
+          width={300}
+          height={24}
+          priority
+        />
+
         <div className={styles.ctas}>
-          {/* <input className={`${styles.primary} ${isValid && !isTyping ? styles.enabled : styles.disabled}`}
-            type="submit" value="CONTINUAR" /> */}
           <input className={`${styles.formButton} ${styles.primary}`}
             type="submit" value="REGISTRAR-SE" />
           <a

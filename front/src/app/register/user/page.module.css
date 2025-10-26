@@ -46,26 +46,29 @@
   display: flex;
   margin-bottom: -12px;
   margin-top: -12px;
-
-
+  
   input[type="checkbox"] {
-  box-sizing: border-box;
-  width: 20px;
-  height: 20px;
-  margin-right: 12px;
-  padding: 0;
-  border: 2px solid #D4A017;
-  appearance: none;
-  background-color: #FFEFBF;
-  outline: none;
-  transition: outline 0.1s;
-}
+    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    padding: 0;
+    border: 1px solid #D4A017;
+    border-radius: 1px;
+    appearance: none;
+    background-color: #FFEFBF;
+    outline: none;
+    transition: outline 0.1s;
+  }
 
-
-input[type="checkbox"]:checked {
-  background-color: #D4A017;
-  padding: 2px;
-}
+  input[type="checkbox"]:checked {
+    background-color: #D4A017;
+    padding: 2px;
+  }
+  
+  label {
+    font-size: 12px !important;
+  }
 
 }
 
@@ -75,6 +78,7 @@ input[type="checkbox"]:checked {
   min-width: 580px;
   border: 1px solid #B2B2B2;
   background-color: var(--background);
+  border-radius: 4px;
 
   &:focus {
     outline: none;
@@ -107,8 +111,7 @@ input[type="checkbox"]:checked {
   font-size: 20px;
   line-height: 20px;
   border-radius: 8px;
-  font-weight: 500;
-  /*Medium*/
+  font-weight: 500; /*Medium*/
   min-width: 580px;
 }
 
@@ -140,7 +143,7 @@ input[type="checkbox"]:checked {
   }
 
   .textForm {
-    font-size: 14;
+    font-size: 12px;
     min-height: 52px;
     min-width: 295px;
   }
