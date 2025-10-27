@@ -1,9 +1,11 @@
 -- CreateTable
 CREATE TABLE "public"."users" (
     "id" SERIAL NOT NULL,
-    "username" TEXT NOT NULL,
-    "email" TEXT,
-    "password" TEXT,
+    "username" VARCHAR(144) NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "accept_lgpd" BOOLEAN NOT NULL,
+    "date_accept" TIMESTAMP(3) NOT NULL,
     "reminder_time" TEXT,
     "is_complete" BOOLEAN NOT NULL DEFAULT false,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

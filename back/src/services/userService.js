@@ -10,6 +10,8 @@ const MAX_USERNAME_LENGTH = 144;
 
 const MIN_USERNAME_LENGTH = 3;
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 /**
  * Primeira etapa do registro (somente username).
  * - Permite nomes repetidos (não é único).
@@ -58,14 +60,38 @@ export const registerUser = async (username) => {
  * - Atualiza o usuário existente e marca como completo.
  * - Recebe o ID DO TOKEN e completa o cadastro.
  */
-export const updateUserWithCredentials = async (id, email, password) => {
+export const updateUserWithCredentials = async (id, email, password, accept_lgpd) => {
+   const numericId = Number(id);
+
   if (!email || email.trim() === "" || !password || password.length < 6) {
-    throw new Error("E-mail e senha são obrigatórios e válidos.");
+    throw new Error("E-mail e senha são obrigatórios.");
+
   }
 
-  const numericId = Number(id);
+  if (!EMAIL_REGEX.test(email)) {
+  throw new Error("Formato de e-mail inválido.");
+}
 
-  // 🔒 Quando for usar bcrypt, troque isso:
+  if (accept_lgpd !== true) {
+    throw new Error("É obrigatório aceitar os Termos de Uso e a Política de Privacidade(LGPD).")
+  }
+
+  const existingEmailUser = await prisma.user.findUnique({
+    where: {email},
+  });
+
+  //Verifica se o email já existe e se o ID do usuário encontrado é diferente do usuário que está tentando atualizar.
+  if (existingEmailUser && existingEmailUser.id !== Number(id)) {
+
+    const error = new Error("Este e-mail já está em uso.")
+    error.status = 409; 
+    throw error;
+  }
+
+
+  // const numericId = Number(id);
+
+  //  Quando for usar bcrypt, troque isso:
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const userToUpdate = await prisma.user.findUnique({
@@ -76,20 +102,27 @@ export const updateUserWithCredentials = async (id, email, password) => {
     throw new Error("Usuário não encontrado ou token inválido.");
   }
 
-  // const existingEmailUser = await prisma.user.findUnique({
-  //   where: {email},
-  // });
-
-  // if (existingEmailUser) {
-  //   throw new Error("Este e-mail já está em uso.")
-  // }
-
+  
   const updatedUser = await prisma.user.update({
-    where: { id: Number(id) },
+    where: { id: numericId },
     data: {
       email,
       password: hashedPassword,
       isComplete: true,
+
+      accept_lgpd: true,
+      date_accept: new Date(),
+    },
+
+    select: {
+      id: true,
+      username: true,
+      email: true,
+      isComplete: true,
+      accept_lgpd: true,
+      date_accept: true,
+      createdAt: true,
+      updatedAt: true,
     },
   });
 

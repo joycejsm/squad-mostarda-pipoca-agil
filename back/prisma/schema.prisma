@@ -18,8 +18,12 @@ datasource db {
 model User {
   id           Int      @id @default(autoincrement())
   username     String   @db.VarChar(144)
-  email        String?  @unique  // Opcional inicialmente
+  email        String?   @unique  // Opcional inicialmente
   password     String?             // Opcional inicialmente
+
+  accept_lgpd  Boolean  @default(false) @map("accept_lgpd")
+  date_accept  DateTime? @map("date_accept")      
+
   reminderTime String?  @map("reminder_time")
   isComplete   Boolean  @default(false) @map("is_complete") // Flag para cadastro completo
   createdAt    DateTime @default(now()) @map("created_at")

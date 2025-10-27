@@ -31,7 +31,7 @@ export const register = async (req, res) => {
 export const completeRegistration = async (req, res) => {
 
   const userIdFromToken = req.userId;
-  const { email, password } = req.body;
+  const { email, password, accept_lgpd } = req.body;
 
   // const numericId = Number(id); !!!apagar depois
 
@@ -43,12 +43,16 @@ export const completeRegistration = async (req, res) => {
 
     res.clearCookie('tempAuthToken');
 
-    const updatedUser = await updateUserWithCredentials(userIdFromToken, email, password);
+    const updatedUser = await updateUserWithCredentials(userIdFromToken, email, password, accept_lgpd);
     res.status(200).json({
       message: "Registro concluído com sucesso! Faça login para continuar.",
       user: updatedUser
     });
   } catch (error) {
+
+    if (error.status === 409) {
+      return res.status(409).json({error: error.message})
+    }
     res.status(400).json({ error: error.message });
   }
 };

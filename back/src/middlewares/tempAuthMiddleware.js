@@ -7,7 +7,7 @@ const tempAuthMiddleware = (req, res, next) => {
 
     if(!token) {
 
-        return res.status(401).json({error: "Toekn de registro não fornecido. Por favpr reinicie o cadastro."})
+        return res.status(401).json({error: "Token de registro não fornecido. Por favor reinicie o cadastro."})
     }
 
      try {
