@@ -1,11 +1,11 @@
 -- CreateTable
 CREATE TABLE "public"."users" (
-    "id" SERIAL NOT NULL,
+    "id" UUID NOT NULL,
     "username" VARCHAR(144) NOT NULL,
-    "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
-    "accept_lgpd" BOOLEAN NOT NULL,
-    "date_accept" TIMESTAMP(3) NOT NULL,
+    "email" TEXT,
+    "password" TEXT,
+    "accept_lgpd" BOOLEAN NOT NULL DEFAULT false,
+    "date_accept" TIMESTAMP(3),
     "reminder_time" TEXT,
     "is_complete" BOOLEAN NOT NULL DEFAULT false,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -33,7 +33,7 @@ CREATE TABLE "public"."feelings" (
 -- CreateTable
 CREATE TABLE "public"."goals" (
     "id" SERIAL NOT NULL,
-    "user_id" INTEGER NOT NULL,
+    "user_id" UUID NOT NULL,
     "title" TEXT NOT NULL,
     "target_amount" DECIMAL(10,2) NOT NULL,
     "current_amount" DECIMAL(10,2) NOT NULL DEFAULT 0.00,
@@ -49,7 +49,7 @@ CREATE TABLE "public"."goals" (
 -- CreateTable
 CREATE TABLE "public"."expenses" (
     "id" SERIAL NOT NULL,
-    "user_id" INTEGER NOT NULL,
+    "user_id" UUID NOT NULL,
     "goal_id" INTEGER,
     "amount" DECIMAL(10,2) NOT NULL,
     "description" TEXT NOT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE "public"."reflections" (
 -- CreateTable
 CREATE TABLE "public"."notifications" (
     "id" SERIAL NOT NULL,
-    "user_id" INTEGER NOT NULL,
+    "user_id" UUID NOT NULL,
     "type" TEXT NOT NULL DEFAULT 'general',
     "title" TEXT NOT NULL DEFAULT 'Notificação',
     "message" TEXT NOT NULL,

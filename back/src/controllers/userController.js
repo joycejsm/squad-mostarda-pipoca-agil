@@ -33,7 +33,7 @@ export const completeRegistration = async (req, res) => {
   const userIdFromToken = req.userId;
   const { email, password, accept_lgpd } = req.body;
 
-  // const numericId = Number(id); !!!apagar depois
+ 
 
   if(!userIdFromToken) {
     return res.status(401).json({error: "Token de registro não encontrado ou inválido"})
