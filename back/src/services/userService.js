@@ -1,11 +1,10 @@
 import { PrismaClient } from "../generated/prisma/index.js";
-import {v7 as uuidv7} from "uuidv7";
+import {uuidv7} from "uuidv7";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
-const newUserId = uuidv7();
 
 const USERNAME_REGEX = /^[A-Za-z\s]+$/; //regra que permite apenas letras e espaços
 
@@ -22,6 +21,8 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
  * - GERA O JWT com o ID do usuário
  */
 export const registerUser = async (username) => {
+
+  const newUserId = uuidv7();
 
   if(typeof username !== "string") {
     throw new Error ("O nome de usuário deve ser uma sequência de letras.")
@@ -65,7 +66,7 @@ export const registerUser = async (username) => {
  * - Recebe o ID DO TOKEN e completa o cadastro.
  */
 export const updateUserWithCredentials = async (id, email, password, accept_lgpd) => {
-   const numericId = Number(id);
+  //  const numericId = Number(id);
 
   if (!email || email.trim() === "" || !password || password.length < 6) {
     throw new Error("E-mail e senha são obrigatórios.");
@@ -85,7 +86,7 @@ export const updateUserWithCredentials = async (id, email, password, accept_lgpd
   });
 
   //Verifica se o email já existe e se o ID do usuário encontrado é diferente do usuário que está tentando atualizar.
-  if (existingEmailUser && existingEmailUser.id !== Number(id)) {
+  if (existingEmailUser && existingEmailUser.id !== id) {
 
     const error = new Error("Este e-mail já está em uso.")
     error.status = 409; 
@@ -99,7 +100,7 @@ export const updateUserWithCredentials = async (id, email, password, accept_lgpd
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const userToUpdate = await prisma.user.findUnique({
-    where: { id: Number(id) },
+    where: { id: id },
   });
 
   if (!userToUpdate) {
@@ -108,7 +109,7 @@ export const updateUserWithCredentials = async (id, email, password, accept_lgpd
 
   
   const updatedUser = await prisma.user.update({
-    where: { id: numericId },
+    where: { id: id },
     data: {
       email,
       password: hashedPassword,
@@ -169,7 +170,7 @@ return {token, user: { id: user.id, username: user.username, email: user.email} 
 
 export const getUserById = async (id) => {
   const user = await prisma.user.findUnique({
-    where: {id: Number(id)},
+    where: {id: id},
     select: {
       id: true, 
       username: true, 
