@@ -1,8 +1,11 @@
 import { PrismaClient } from "../generated/prisma/index.js";
+import {v7 as uuidv7} from "uuidv7";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
+
+const newUserId = uuidv7();
 
 const USERNAME_REGEX = /^[A-Za-z\s]+$/; //regra que permite apenas letras e espaços
 
@@ -42,6 +45,7 @@ export const registerUser = async (username) => {
 
   const newUser = await prisma.user.create({
     data: {
+      id: newUserId,
       username,
       isComplete: false,
     },

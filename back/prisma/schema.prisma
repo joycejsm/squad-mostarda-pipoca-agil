@@ -16,7 +16,7 @@ datasource db {
 
 
 model User {
-  id           Int      @id @default(autoincrement())
+  id           String      @id @db.Uuid
   username     String   @db.VarChar(144)
   email        String?   @unique  // Opcional inicialmente
   password     String?             // Opcional inicialmente
@@ -55,7 +55,7 @@ model Feeling {
 
 model Goal {
   id            Int       @id @default(autoincrement())
-  userId        Int       @map("user_id")
+  userId        String       @map("user_id")
   title         String
   targetAmount  Decimal   @map("target_amount") @db.Decimal(10, 2)
   currentAmount Decimal   @default(0.00) @map("current_amount") @db.Decimal(10, 2)
@@ -74,7 +74,7 @@ model Goal {
 
 model Expense {
   id          Int      @id @default(autoincrement())
-  userId      Int      @map("user_id")
+  userId      String      @map("user_id")
   goalId      Int?     @map("goal_id") // Opcional - nem todo gasto está linked a uma meta
   amount      Decimal  @db.Decimal(10, 2)
   description String
@@ -106,7 +106,7 @@ model Reflection {
 
 model Notification {
   id        Int      @id @default(autoincrement())
-  userId    Int      @map("user_id")
+  userId    String      @map("user_id")
   type      String   @default("general") // "reminder", "motivation", "goal_progress", "general"
   title     String   @default("Notificação")
   message   String
