@@ -10,7 +10,7 @@ export default function User() {
   const [inputEmail, setInputEmail] = useState<string>("");
   const [inputPass, setInputPass] = useState<string>("");
   const validEmailPattern = /^([\w-]+\.?)+@([\w-]+\.)+([A-Za-z]{2,4})+$/; /* regex com o padrão permitido, faça o teste em https://regexr.com/ */
-  const validPassPattern = /^(?=.*[A-Z])(?=.*[!$*&@#])([0-9a-zA-Z!$*&@#]){8,}$/; /* regex com o padrão permitido, faça o teste em https://regexr.com/ */
+  const validPassPattern = /^(?=.*[A-Z])(?=.*[ -\/:-@\[-\`{-~])([0-9a-zA-ZÀ-ÖØ-öø-ÿ -\/:-@\[-\`{-~]){8,}$/; /* regex com o padrão permitido, faça o teste em https://regexr.com/ */
 
   // const validPassPattern = /^(?=.*[A-Z])(?=.*[!$*&@#])(?:([0-9a-zA-Z!$*&@#])(?!\1)){8,}$/; /* regex com o padrão permitido, faça o teste em https://regexr.com/ */
   // const validPassPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!$*&@#])(?:([0-9a-zA-Z!$*&@#])(?!\1)){8,}$/; /* regex com o padrão permitido, faça o teste em https://regexr.com/ */
@@ -76,7 +76,7 @@ export default function User() {
         <label htmlFor="password">Crie uma senha</label>
         <input
           className={styles.textForm}
-          type='text'
+          type='password'
           name='password'
           placeholder='Escreva sua senha'
           value={inputPass}
