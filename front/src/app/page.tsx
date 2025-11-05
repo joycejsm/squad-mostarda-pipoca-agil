@@ -47,7 +47,7 @@ export default function Home() {
         <div className={styles.ctas}>
           <Link
             className={styles.primary}
-            href="/register"
+            href="/register/name"
           >
             COMEÇAR AGORA
           </Link>

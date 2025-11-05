@@ -148,7 +148,7 @@ a.secondary {
     height: 45px;
     padding: 0 70px;
     min-width: 280px;
-    border-radius: 0px;
+    /* border-radius: 0px; */ /*mudança de estilo*/
   }
 
   a.secondary {
