@@ -5,15 +5,13 @@ import Image from "next/image";
 import styles from "./page.module.css"; /*arquivo de estilização*/
 import Link from 'next/link';
 
-export default function User() {
+export default function Login() {
   const navigate = useRouter()
   const [inputEmail, setInputEmail] = useState<string>("");
   const [inputPass, setInputPass] = useState<string>("");
   const validEmailPattern = /^([\w-]+\.?)+@([\w-]+\.)+([A-Za-z]{2,4})+$/; /* regex com o padrão permitido, faça o teste em https://regexr.com/ */
   const validPassPattern = /^(?=.*[A-Z])(?=.*[ -\/:-@\[-\`{-~])([0-9a-zA-ZÀ-ÖØ-öø-ÿ -\/:-@\[-\`{-~]){8,}$/; /* regex com o padrão permitido, faça o teste em https://regexr.com/ */
 
-  // const validPassPattern = /^(?=.*[A-Z])(?=.*[!$*&@#])(?:([0-9a-zA-Z!$*&@#])(?!\1)){8,}$/; /* regex com o padrão permitido, faça o teste em https://regexr.com/ */
-  // const validPassPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!$*&@#])(?:([0-9a-zA-Z!$*&@#])(?!\1)){8,}$/; /* regex com o padrão permitido, faça o teste em https://regexr.com/ */
   const isValid: boolean = !!inputPass.match(validPassPattern) && !!inputEmail.match(validEmailPattern);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +37,7 @@ export default function User() {
   return (
     <div className={styles.page}>
       <div className={styles.navContainer}>
-        <Link href="/register/name">
+        <Link href="/">
           <Image
             src="/Arrow_back.svg"
             alt="Arrow_back"
@@ -59,10 +57,10 @@ export default function User() {
         </Link>
       </div>
 
-      <h1>Seja bem-vindo</h1>
+      <h1>Seja bem-vindo novamente</h1>
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Seu melhor email</label>
+        <label htmlFor="email">Seu email</label>
         <input
           className={styles.textForm}
           type='text'
@@ -73,7 +71,7 @@ export default function User() {
           onKeyDown={(e) => e.stopPropagation()}
           onKeyUp={(e) => e.stopPropagation()}
         />
-        <label htmlFor="password">Crie uma senha</label>
+        <label htmlFor="password">Sua senha</label>
         <input
           className={styles.textForm}
           type='password'
@@ -88,10 +86,10 @@ export default function User() {
           <input type="checkbox" id="checkbox1" name="checkbox1" value="Checkbox1" />
           <label htmlFor="checkbox1">Mantenha-me conectado</label> <br />
         </div>
-        <div className={styles.checkboxContainer}>
+        {/* <div className={styles.checkboxContainer}>
           <input type="checkbox" id="checkbox2" name="checkbox2" value="Checkbox2" />
           <label htmlFor="checkbox2">Concordo com as Leis LGPD</label> <br />
-        </div>
+        </div> */}
 
         <br />
 
@@ -106,12 +104,12 @@ export default function User() {
 
         <div className={styles.ctas}>
           <input className={`${styles.formButton} ${styles.primary}`}
-            type="submit" value="REGISTRAR-SE" />
+            type="submit" value="FAZER LOGIN" />
           <Link
-            href="/login"
+            href="/register/name"
             className={`${styles.formButton} ${styles.secondary}`}
           >
-            JÁ TENHO CONTA
+            CRIAR CONTA
           </Link>
         </div>
       </form>

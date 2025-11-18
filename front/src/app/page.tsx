@@ -51,12 +51,12 @@ export default function Home() {
           >
             COMEÇAR AGORA
           </Link>
-          <a
-            href="#"
+          <Link
+            href="/login"
             className={styles.secondary}
           >
             JÁ TENHO CONTA
-          </a>
+          </Link>
         </div>
       </main>
     </div>

@@ -1,0 +1,163 @@
+/*arquivo de estilização da página de login*/
+
+.page {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  padding: 16px;
+  gap: 16px;
+  margin-top: 4px;
+
+  h1 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 500; /*Medium*/
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin: 0px;
+    padding: 0px;
+
+    label {
+      margin-bottom: -14px;
+      font-size: 14px;
+    }
+  }
+
+}
+
+.navContainer {
+  display: flex;
+  gap: 70vw;
+
+  a:first-child {
+    justify-self: start;
+  }
+
+  a:nth-child(2) {
+    justify-self: end;
+  }
+}
+
+.checkboxContainer {
+  display: flex;
+  margin-bottom: -12px;
+  margin-top: -12px;
+  
+  input[type="checkbox"] {
+    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    padding: 0;
+    border: 1px solid #D4A017;
+    border-radius: 1px;
+    appearance: none;
+    background-color: #FFEFBF;
+    outline: none;
+    transition: outline 0.1s;
+  }
+
+  input[type="checkbox"]:checked {
+    background-color: #D4A017;
+    padding: 2px;
+  }
+  
+  label {
+    font-size: 12px !important;
+  }
+
+}
+
+.textForm {
+  font-size: 20px;
+  padding: 10px 10px 10px 5px;
+  min-width: 580px;
+  border: 1px solid #B2B2B2;
+  background-color: var(--background);
+  border-radius: 4px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: #9F9F9F;
+  }
+}
+
+.ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formButton {
+  appearance: none;
+  height: 48px;
+  padding: 0 90px;
+  border: 1px solid transparent;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  line-height: 20px;
+  border-radius: 8px;
+  font-weight: 500; /*Medium*/
+  min-width: 580px;
+}
+
+.primary {
+  background: #D4A017;
+  color: #0E0F11;
+}
+
+.disabled {
+  background: #DDE1E6;
+  color: #fff;
+}
+
+.secondary {
+  border-color: #D4A017;
+  color: #575757;
+}
+
+@media (max-width: 600px) {
+
+  .page {
+    padding: 32px;
+    padding-bottom: 80px;
+    gap: 64px;
+
+    h1 {
+      font-size: 28px;
+    }
+  }
+
+  .textForm {
+    font-size: 12px;
+    min-height: 52px;
+    min-width: 295px;
+  }
+
+  .ctas {
+    flex-direction: column;
+  }
+
+  .formButton {
+    font-size: 14px;
+    height: 45px;
+    padding: 0 70px;
+    min-width: 295px;
+    /* border-radius: 0px; */
+  }
+
+}
