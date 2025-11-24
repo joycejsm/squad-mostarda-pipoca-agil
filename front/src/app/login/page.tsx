@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "./page.module.css"; /*arquivo de estilização*/
 import Link from 'next/link';
+import Modal from './modal';
 
 export default function Login() {
   const navigate = useRouter()
@@ -14,6 +15,7 @@ export default function Login() {
 
   const isValid: boolean = !!inputPass.match(validPassPattern) && !!inputEmail.match(validEmailPattern);
 
+  const [modalStatus, setModalStatus] = useState(false)
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputEmail(e.target.value);
 
@@ -90,7 +92,9 @@ export default function Login() {
           <input type="checkbox" id="checkbox2" name="checkbox2" value="Checkbox2" />
           <label htmlFor="checkbox2">Concordo com as Leis LGPD</label> <br />
         </div> */}
-
+        <div  onClick={() => {
+        setModalStatus(!modalStatus);}}><p>Esqueci a senha</p>
+        </div>
         <br />
 
         <Image
@@ -113,6 +117,7 @@ export default function Login() {
           </Link>
         </div>
       </form>
+      {modalStatus ? <Modal /> : null}
     </div>
   );
 }

@@ -25,6 +25,12 @@
       margin-bottom: -14px;
       font-size: 14px;
     }
+    p {
+      font-size: 12px;
+      text-decoration: underline; 
+      margin-bottom: -46px;
+      margin-top: -12px; 
+    }
   }
 
 }
