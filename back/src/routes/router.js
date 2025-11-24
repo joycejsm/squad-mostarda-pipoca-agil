@@ -3,6 +3,7 @@ import { Router } from "express";
 import { register, completeRegistration, login, getProfile } from "../controllers/userController.js";
 import authMiddleware from "../middlewares/auth.js";
 import tempAuthMiddleware from "../middlewares/tempAuthMiddleware.js";
+import { saveReminderTime } from "../controllers/reminderController.js";
 const router = Router();
 
 // Rota para o registro do nome de usuário (primeira tela)
@@ -17,5 +18,7 @@ router.post("/api/users/login", login);
 //rota protegida com token
 
 router.get("/api/users/me", authMiddleware, getProfile)
+
+router.post("/api/reminder", saveReminderTime);
 
 export default router;

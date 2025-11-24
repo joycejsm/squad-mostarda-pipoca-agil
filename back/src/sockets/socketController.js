@@ -11,4 +11,8 @@ export const initializeSocket = (io) => {
       console.log("Um cliente se desconectou.");
     });
   });
+
+  //IO disponível globalmente para outros arquivos
+
+  global._io = io;
 };
