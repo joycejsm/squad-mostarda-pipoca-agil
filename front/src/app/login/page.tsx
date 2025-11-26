@@ -88,12 +88,9 @@ export default function Login() {
           <input type="checkbox" id="checkbox1" name="checkbox1" value="Checkbox1" />
           <label htmlFor="checkbox1">Mantenha-me conectado</label> <br />
         </div>
-        {/* <div className={styles.checkboxContainer}>
-          <input type="checkbox" id="checkbox2" name="checkbox2" value="Checkbox2" />
-          <label htmlFor="checkbox2">Concordo com as Leis LGPD</label> <br />
-        </div> */}
-        <div  onClick={() => {
-        setModalStatus(!modalStatus);}}><p>Esqueci a senha</p>
+        <div onClick={() => {
+          setModalStatus(true);
+        }}><p>Esqueci a senha</p>
         </div>
         <br />
 
@@ -117,7 +114,7 @@ export default function Login() {
           </Link>
         </div>
       </form>
-      {modalStatus ? <Modal /> : null}
+      {modalStatus ? <Modal onClose={() => setModalStatus(false)} /> : null}
     </div>
   );
 }

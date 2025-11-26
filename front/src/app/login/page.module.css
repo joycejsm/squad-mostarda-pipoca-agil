@@ -30,7 +30,13 @@
       text-decoration: underline; 
       margin-bottom: -46px;
       margin-top: -12px; 
+      cursor: pointer;
+      width: 100px;
     }
+  }
+
+  dialog {
+    margin-left: 2.5vw;
   }
 
 }
